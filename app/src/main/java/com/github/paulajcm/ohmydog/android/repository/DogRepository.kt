@@ -24,7 +24,7 @@ class DogRepository {
             }
 
             override fun onError(e: Throwable) {
-                Log.d("DOG", "DOGS error")
+                Log.d("DOG", "DOGS error", e)
             }
 
             override fun onComplete() {
@@ -38,7 +38,7 @@ class DogRepository {
             .flatMap { source: List<BreedDTO> ->
                 Observable.fromIterable(source)
             }
-            .flatMap { breedDTO: BreedDTO ->
+            .concatMap { breedDTO: BreedDTO ->
                 dogService.getDogByBreed(
                     breedDTO
                 ).toObservable()
