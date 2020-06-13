@@ -28,7 +28,7 @@ class DogService {
     }
 
     fun getDogByBreed(breedDTO: BreedDTO): Maybe<DogDTO> {
-        return dogApi.getDogByBreedId("small", 1, breedDTO.id)
+        return dogApi.getDogByBreedId("thumb", 1, breedDTO.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.isNotEmpty() }

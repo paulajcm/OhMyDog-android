@@ -24,6 +24,7 @@ class BreedListAdapter : RecyclerView.Adapter<BreedListAdapter.ViewHolder?>() {
             Glide.with(breedImageView.context)
                 .load(breedPath)
                 .apply(RequestOptions.centerInsideTransform().timeout(60000))
+                .placeholder(R.drawable.ic_launcher_foreground)
                 .into(breedImageView)
         }
 
