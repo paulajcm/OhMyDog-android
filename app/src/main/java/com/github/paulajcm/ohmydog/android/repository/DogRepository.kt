@@ -9,11 +9,15 @@ import com.github.paulajcm.ohmydog.android.network.DogService
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DogRepository {
+@Singleton
+class DogRepository @Inject constructor(
+    private val dogService: DogService
+) {
 
     val dogs = MutableLiveData<List<Dog>>()
-    private val dogService = DogService.getInstance()
 
     fun refreshDogsLifeData(disposable: CompositeDisposable) {
         val dogArrayList = ArrayList<Dog>()
@@ -45,18 +49,5 @@ class DogRepository {
             }
             .map { it.asDomainModel() }
             .subscribeWith(observer)
-    }
-
-    companion object {
-        private lateinit var INSTANCE: DogRepository
-
-        fun getInstance(): DogRepository {
-            synchronized(DogRepository::class.java) {
-                if (!::INSTANCE.isInitialized) {
-                    INSTANCE = DogRepository()
-                }
-            }
-            return INSTANCE
-        }
     }
 }

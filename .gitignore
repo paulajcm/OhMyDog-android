@@ -38,6 +38,9 @@ captures/
 .idea/workspace.xml
 .idea/libraries
 .idea/caches
+.idea/caches/
+.idea/codeStyles/
+.idea/dbnavigator.xml
 
 # Keystore files
 *.jks

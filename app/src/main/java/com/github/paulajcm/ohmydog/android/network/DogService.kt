@@ -1,6 +1,5 @@
 package com.github.paulajcm.ohmydog.android.network
 
-import com.github.paulajcm.ohmydog.android.di.DaggerDogComponent
 import com.github.paulajcm.ohmydog.android.model.dto.BreedDTO
 import com.github.paulajcm.ohmydog.android.model.dto.DogDTO
 import com.github.paulajcm.ohmydog.android.model.dto.withBreed
@@ -9,16 +8,12 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class DogService {
-
-
-    @Inject
-    lateinit var dogApi: DogApi
-
-    init {
-        DaggerDogComponent.create().inject(this)
-    }
+@Singleton
+class DogService @Inject constructor(
+    var dogApi: DogApi
+) {
 
     fun getAllBreeds(): Observable<List<BreedDTO>> {
         return dogApi.getAllBreeds()
@@ -34,18 +29,4 @@ class DogService {
             .filter { it.isNotEmpty() }
             .flatMap { dogs: List<DogDTO> -> Maybe.just(dogs[0].withBreed(breedDTO)) }
     }
-
-    companion object {
-        private lateinit var INSTANCE: DogService
-
-        fun getInstance(): DogService {
-            synchronized(DogService::class.java) {
-                if (!::INSTANCE.isInitialized) {
-                    INSTANCE = DogService()
-                }
-            }
-            return INSTANCE
-        }
-    }
-
 }

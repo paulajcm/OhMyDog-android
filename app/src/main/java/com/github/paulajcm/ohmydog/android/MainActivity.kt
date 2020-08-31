@@ -3,7 +3,9 @@ package com.github.paulajcm.ohmydog.android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.github.paulajcm.ohmydog.android.ui.main.BreedListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
